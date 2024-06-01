@@ -1,5 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
+import { SafeAreaWrapper } from "../../components/safeAreaWrapper";
 
 export default function TabLayout() {
   return (
@@ -27,6 +30,17 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Settings",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="cog" color={color} />
+          ),
+        }}
+      />
+      {/* Inactive tabs */}
+      <Tabs.Screen
+        name="cocktail"
+        options={{
+          href: null,
+          title: "Cocktail",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="cog" color={color} />
           ),

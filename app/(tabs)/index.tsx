@@ -1,7 +1,9 @@
-import { Link } from "expo-router";
+import { Link, router, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import { Drink, DrinkList } from "../types/drinks";
+import { Drink, DrinkList } from "../../types/drinks";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaWrapper } from "../../components/safeAreaWrapper";
 
 export default function Page() {
   const dummyData: DrinkList = {
@@ -349,6 +351,8 @@ export default function Page() {
     ],
   };
 
+  const navigation = useNavigation();
+
   const [cocktails, setCocktails] = useState<Drink[]>(dummyData.drinks);
 
   // useEffect(() => {
@@ -380,20 +384,20 @@ export default function Page() {
         }}
       >
         {cocktails.map((cocktail) => (
-          <Link
-            href="/settings"
+          <Pressable
+            onPress={() =>
+              router.push({ pathname: `/cocktail`, params: cocktail })
+            }
             key={cocktail.idDrink}
             style={{
               height: 100,
               width: 100,
               justifyContent: "center",
-              verticalAlign: "middle",
               borderColor: "#ffd28d",
               alignContent: "center",
               alignItems: "center",
               alignSelf: "center",
               borderWidth: 1,
-              textAlign: "center",
             }}
           >
             <View
@@ -404,7 +408,6 @@ export default function Page() {
                 alignContent: "center",
                 alignItems: "center",
                 alignSelf: "center",
-                textAlign: "center",
                 flexWrap: "wrap",
                 gap: 2,
               }}
@@ -428,7 +431,7 @@ export default function Page() {
                 {cocktail.strDrink}
               </Text>
             </View>
-          </Link>
+          </Pressable>
         ))}
       </View>
     </View>
